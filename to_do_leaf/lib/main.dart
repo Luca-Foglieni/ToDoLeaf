@@ -12,7 +12,7 @@ class ToDoLeaf extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: NavigationPage());
+    return MaterialApp(title: 'To Do Leaf', theme: ThemeData.dark(useMaterial3: true), home: const NavigationPage());
   }
 }
 
@@ -26,24 +26,29 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   int currentPageIndex = 0;
 
-  final SharedPreferencesAsync preferencesAsync = SharedPreferencesAsync();
+  // final SharedPreferencesAsync preferencesAsync = SharedPreferencesAsync();
 
   List<Habit> habits = [
     Habit(1, 'Andare a letto'),
-    Habit(2, 'Lavarsi i denti'),
-    Habit(1, 'Mangiare del fieno'),
-    Habit(2, 'Farsi le sopracciglia'),
-    Habit(2, 'Farsi le sopracciglia'),
-    Habit(1, 'Andare a letto'),
-    Habit(2, 'Lavarsi i denti'),
-    Habit(1, 'Mangiare del fieno'),
-    Habit(2, 'Farsi le sopracciglia'),
-    Habit(2, 'Farsi le sopracciglia'),
-    Habit(1, 'Andare a letto'),
-    Habit(2, 'Lavarsi i denti'),
-    Habit(1, 'Mangiare del fieno'),
-    Habit(2, 'Farsi le sopracciglia'),
-    Habit(2, 'Farsi le sopracciglia'),
+    Habit(5, 'Lavarsi i denti'),
+    Habit(3, 'Fare colazione'),
+    Habit(4, 'Fare esercizio fisico'),
+    Habit(5, 'Bere acqua'),
+    Habit(2, 'Leggere un libro'),
+    Habit(7, 'Meditare'),
+    Habit(4, 'Fare una passeggiata'),
+    Habit(9, 'Pianificare la giornata'),
+    Habit(10, 'Fare una pausa dal lavoro'),
+    Habit(2, 'Prendere le medicine'),
+    Habit(3, 'Scrivere un diario'),
+    Habit(5, 'Fare stretching'),
+    Habit(5, 'Preparare il pranzo'),
+    Habit(1, 'Chiamare un amico o un familiare'),
+    Habit(5, 'Fare la spesa'),
+    Habit(9, 'Pulire la casa'),
+    Habit(8, 'Fare una sessione di yoga'),
+    Habit(6, 'Ascoltare un podcast'),
+    Habit(2, 'Fare un controllo delle email'),
   ];
 
   @override
@@ -75,8 +80,8 @@ class _NavigationPageState extends State<NavigationPage> {
         selectedIndex: currentPageIndex,
         destinations: <Widget>[
           NavigationDestination(
-            selectedIcon: Image.asset('assets/refresh_filled.png', height: imageSize, width: imageSize),
-            icon: Image.asset('assets/refresh.png', height: imageSize, width: imageSize),
+            selectedIcon: Image.asset('assets/refresh_filled_light.png', height: imageSize, width: imageSize),
+            icon: Image.asset('assets/refresh_light.png', height: imageSize, width: imageSize),
             label: 'Habits',
           ),
           const NavigationDestination(
@@ -107,15 +112,17 @@ class _NavigationPageState extends State<NavigationPage> {
                               HapticFeedback.mediumImpact();
                               setState(() {
                                 habits.elementAt(index).done = !habits.elementAt(index).done;
+                                // habits.elementAt(index).timer = Timer(
+                                //   DateTime(
+                                //     DateTime.now().year,
+                                //     DateTime.now().month,
+                                //     DateTime.now().day + 1,
+                                //   ).difference(DateTime.now()),
+                                //   () => habits.elementAt(index).done = false,
+                                // );
                                 habits.elementAt(index).timer = Timer(
-                                  DateTime(
-                                    DateTime.now().year,
-                                    DateTime.now().month,
-                                    DateTime.now().day + 1,
-                                  ).difference(DateTime.now()),
-                                  () => setState(() {
-                                    habits.elementAt(index).done = false;
-                                  }),
+                                  Duration(seconds: habits.elementAt(index).seconds),
+                                  () => {},
                                 );
                                 // print(
                                 //   DateTime(
